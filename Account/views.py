@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from ResponseHandle import exception_handler
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import MyUser
 from .serializers import RoleSerializer, MyUserSerializer
@@ -55,12 +56,14 @@ def user_login(request):
             return exception_handler.error_handling(errMsg=output)
 
         user = authenticate(email=email, password=password)
-
+        refresh = RefreshToken.for_user(user)
         if user:
             data = {
                 'id':user.id,
                 'email':user.email,
-                'role_type':user.role_id.role_type
+                'role_type':user.role_id.role_type,
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
             }
             return exception_handler.error_handling(data=data)
         else:

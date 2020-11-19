@@ -8,7 +8,7 @@ Signup
 1. http://127.0.0.1:8000/account/signup
 
 Signin
-2. http://127.0.0.1:8000/account/user_login
+2. http://127.0.0.1:8000/account/login
 
 Inbuilt api for token generate
 1. http://127.0.0.1:8000/account/api/token/
